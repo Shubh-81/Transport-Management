@@ -73,11 +73,13 @@ const Form = () => {
     for (let value in values) {
       formData.append(value, values[value].trim());
     }
+    console.log(formData);
     const savedUserResponse = await fetch(
       "http://localhost:3001/auth/register",
       {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
       }
     );
     const res = await savedUserResponse.json();

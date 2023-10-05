@@ -2,12 +2,13 @@ import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import Navbar from "../../scenes/navbar";
 import UserWidget from "../../scenes/widgets/UserWidget";
-import QRCodeGenerator from '../widgets/QRCodeGenerator'
+import QRCodeGenerator from '../widgets/QRCodeGenerator';
+import Scanner from "../widgets/Scanner";
 
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const { _id } = useSelector((state) => state.user);
+  const { _id, userType } = useSelector((state) => state.user);
   return (
     <Box>
       <Navbar />
@@ -26,7 +27,7 @@ const HomePage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-            <QRCodeGenerator token={_id}/>
+            {userType === 'user' ? <QRCodeGenerator token={_id}/> : <Scanner/>}
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "26%" : undefined}

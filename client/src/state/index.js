@@ -20,19 +20,9 @@ export const authSlice = createSlice({
         setLogout: (state) => {
             state.user = null;
             state.token = null;
-        },
-        setChoices: (state,action) => {
-            if(state.user) {
-                state.user.choices = action.payload.user.choices;
-            }   else {
-                console.log("No Choices Yet");
-            }
-        },
-        getChoices: (state) => {
-            return state.choices;
         }
     }
 });
 
-export const {setMode, setLogin, setLogout, setChoices, getChoices } = authSlice.actions;
+export const {setMode, setLogin, setLogout } = authSlice.actions;
 export default authSlice.reducer;

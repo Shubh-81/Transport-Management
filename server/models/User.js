@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
     },
     userType: {
         type: String,
-        default: "Student",
+        default: "user",
         required: true,
     }
 

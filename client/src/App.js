@@ -2,7 +2,6 @@ import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import HomePage from "./scenes/homePage";
 import LoginPage from "./scenes/loginPage";
 import ResetPage from './scenes/resetPage';
-import ScannerPage from "./scenes/scannerPage";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -30,10 +29,6 @@ function App() {
             <Route
               path="/reset"
               element={<ResetPage />}
-            />
-            <Route
-                path="/scanner"
-                element={<ScannerPage />}
             />
           </Routes>
         </ThemeProvider>
