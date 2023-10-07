@@ -24,7 +24,7 @@ export const register = async (req,res) => {
                 firstName,
                 lastName,
                 email,
-                userType: 'driver',
+                userType: 'user',
                 password: passwordHash,
             });
             console.log(newUser)
