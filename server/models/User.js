@@ -31,8 +31,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: "user",
         required: true,
+    },
+    id: {
+        type: String,
+        required: true
     }
-
 }, {timestamps: true});
 
 const User = mongoose.model('User',UserSchema);

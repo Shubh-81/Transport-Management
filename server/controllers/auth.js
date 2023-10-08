@@ -11,29 +11,26 @@ export const register = async (req,res) => {
             email,
             password,
         } = req.body;
-        console.log(req.body)
         let query = []
         query.push({email: email});
         const foundUser = await User.findOne({$or: query});
         if(!foundUser || foundUser.verified === false) {
             const salt = await bcrpyt.genSalt();
-            console.log("h");
+            const emailSalt = await bcrpyt.genSalt();
             const passwordHash = await bcrpyt.hash(password,salt);
-            console.log("Here")
+            const id = await bcrpyt.hash(email, emailSalt);
             const newUser = new User({
                 firstName,
                 lastName,
                 email,
                 userType: 'user',
                 password: passwordHash,
+                id: id
             });
-            console.log(newUser)
             const savedUser = await newUser.save();
-            console.log(savedUser)
             res.status(200).json(savedUser);
         }
     }   catch(err) {
-        console.log(err);
         res.status(500).json({error: err.message}); 
     }
 };
@@ -41,9 +38,7 @@ export const register = async (req,res) => {
 export const login = async (req,res) => {
     try {
         const {email, password} = req.body;
-        console.log(req.body)
         const user = await User.findOne({email:email});
-        console.log(user)
         if(!user)   return res.status(400).json({message: "User does not exist"});
         const isMatch = await bcrpyt.compare(password,user.password);
         if(!isMatch)    return res.status(400).json({message: "Invalid Credentials"});
