@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import QrReader from 'react-qr-scanner';
-import { Typography, useTheme } from '@mui/material';
+import { Typography, useTheme, MenuItem, Select } from '@mui/material';
 import FlexBetween from '../../components/FlexBetween';
 import WidgetWrapper from '../../components/WidgetWrapper';
 
@@ -9,12 +9,45 @@ const Scanner = () => {
     const [result, setResult] = useState(null);
     const { palette } = useTheme();
     const dark = palette.neutral.dark;
-    const [scannerEnabled, setScannerEnabled] = useState(true); // Added scannerEnabled state
+    const [scannerEnabled, setScannerEnabled] = useState(true);
+    const [correctQR, setCorrectQR] = useState(false);
+    const [selectedBus, setSelectedBus] = useState(null);
+    const [busList, setBusList] = useState([]);
+
+    const handleBusChange = (event) => {
+        setSelectedBus(event.target.value);
+    };
+
+    const listBuses = async () => {
+        try {
+            const response = await fetch(
+                "http://localhost:3001/bus/list",
+                {
+                    method: "GET",
+                }
+            );
+            const res = await response.json();
+            if(res) {
+                console.log(res);
+                setBusList(res);
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await listBuses();
+        };
+        fetchData();
+    }, []);
 
     const addUser = async (userId) => {
         try {
+            if(!selectedBus)    return;
             const values = {
-                busName: "kudasan",
+                busName: selectedBus,
                 userId: userId
             }
             const response = await fetch(
@@ -25,7 +58,10 @@ const Scanner = () => {
                     body: JSON.stringify(values),
                 }
             );
-            console.log(response)
+            const res = await response;
+            if(res.status === 200) {
+                setCorrectQR(true);
+            }
         } catch(err) {
             console.log(err);
         }
@@ -37,6 +73,7 @@ const Scanner = () => {
             await addUser(data.text);
             setTimeout(() => {
                 setResult(null);
+                setCorrectQR(false);
                 setScannerEnabled(true);
             }, 5000);
         }
@@ -53,11 +90,30 @@ const Scanner = () => {
 
     return (
         <WidgetWrapper>
-            <FlexBetween>
                 <Typography color={dark} variant="h3" fontWeight="500">
                     QR Code Scanner
                 </Typography>
-            </FlexBetween>
+                <div style={{ marginTop: '20px' }}>
+                    <Typography
+                        color={dark}
+                        variant="h5"
+                        fontWeight="500"
+                    >
+                        Select Bus:
+                    </Typography>
+                    <Select
+                        value={selectedBus}
+                        onChange={handleBusChange}
+                        style={{ width: '100%' }}
+                    >
+                        {busList.map((option) => (
+                            <MenuItem key={option} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </div>
+
             <FlexBetween>
                 <div
                     style={{
@@ -83,16 +139,16 @@ const Scanner = () => {
                         variant="h3"
                         fontWeight="400"
                     >
-                        QR Scanned Successfully.
+                        QR Scanned {correctQR ? 'Successfully' : 'Unsuccessfully'}
                     </Typography>
                     <div
                         style={{
                             fontSize: '64px',
-                            color: 'green',
+                            color: correctQR ? 'green' : 'red', // Use green for success and red for failure
                             textAlign: 'center',
                         }}
                     >
-                        &#10004;
+                        {correctQR ? '✓' : '✘'} {/* Display a checkmark or cross */}
                     </div>
                 </div>
             )}

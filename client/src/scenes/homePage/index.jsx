@@ -8,7 +8,7 @@ import Scanner from "../widgets/Scanner";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const { _id, userType } = useSelector((state) => state.user);
+  const { _id, userType, id } = useSelector((state) => state.user);
   return (
     <Box>
       <Navbar />
@@ -27,7 +27,7 @@ const HomePage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-            {userType === 'user' ? <QRCodeGenerator token={_id}/> : <Scanner/>}
+            {userType === 'user' ? <QRCodeGenerator token={id}/> : <Scanner/>}
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "26%" : undefined}
