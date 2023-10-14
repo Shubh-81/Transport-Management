@@ -5,7 +5,7 @@ import {
   TextField,
   useMediaQuery,
   Typography,
-  useTheme,
+  useTheme, InputLabel, FormControl, Select,
 } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -61,19 +61,15 @@ const Form = () => {
   const [otp,setOTP] = useState("");
   const [userId,setUserId] = useState("");
   const [incorrectOTP,setIncorrectOTP] = useState(false);
-
+  const [selectedRole, setSelectedRole] = useState("user");
   const register = async (values, onSubmitProps) => {
     if(!valid) {
       setIsLoading(false);
-      registerButtonMessage("Invalid Password");
+      alert("Invalid Password");
       return;
     }
+    values['role'] = selectedRole;
     setIsLoading(true);
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value].trim());
-    }
-    console.log(formData);
     const savedUserResponse = await fetch(
       "http://localhost:3001/auth/register",
       {
@@ -102,11 +98,11 @@ const Form = () => {
         } 
         else {
           setIsLoading(false);
-          setRegisterButtonMessage(res.message);
+          alert(res.message);
         }
     } else {
           setIsLoading(false);
-          setRegisterButtonMessage("User with one of unique entries already exists");
+          alert(res.message);
     }
   };
 
@@ -311,6 +307,22 @@ const Form = () => {
               helperText={touched.email && errors.email}
               sx={{ gridColumn: "span 4" }}
             />
+            {isRegister&&<FormControl>
+              <InputLabel htmlFor="user-role">User Role</InputLabel>
+              <Select
+                  native
+                  value={selectedRole}
+                  onChange={(e) => setSelectedRole(e.target.value)}
+                  inputProps={{
+                    name: "user-role",
+                    id: "user-role",
+                  }}
+                  sx={{width: "100%"}}
+              >
+                <option value="user">User</option>
+                <option value="driver">Driver</option>
+              </Select>
+            </FormControl>}
             <TextField
               label="Password"
               type="password"
@@ -322,14 +334,16 @@ const Form = () => {
               helperText={touched.password && errors.password}
               sx={{ gridColumn: "span 4" }}
             />
-            {!isLogin&&<PasswordChecklist
+
+            {!isLogin&&<div>
+              <PasswordChecklist
 				    rules={["minLength","number","capital"]}
 				    minLength={5}
             style={{width: "30rem"}}
             iconSize={10}
 				    value={values.password}
 				    onChange={(isValid) => {setValid(isValid)}}
-			      />}
+            /> </div>}
             
           </Box>
 

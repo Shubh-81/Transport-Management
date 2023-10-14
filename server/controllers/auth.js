@@ -10,9 +10,12 @@ export const register = async (req,res) => {
             lastName,
             email,
             password,
+            role
         } = req.body;
         let query = []
         query.push({email: email});
+        const pattern = /@iitgn\.ac\.in$/;
+        if(role === 'user' && !pattern.test(email)) return res.status(500).json({message: "Please register only using Institute Email"});
         const foundUser = await User.findOne({$or: query});
         if(!foundUser || foundUser.verified === false) {
             const salt = await bcrpyt.genSalt();
@@ -23,13 +26,14 @@ export const register = async (req,res) => {
                 firstName,
                 lastName,
                 email,
-                userType: 'user',
+                userType: role.toLowerCase(),
                 password: passwordHash,
                 id: id
             });
             const savedUser = await newUser.save();
-            res.status(200).json(savedUser);
+            return res.status(200).json(savedUser);
         }
+        return res.status(500).json({message: "User with this email already exist, please login."});
     }   catch(err) {
         res.status(500).json({error: err.message}); 
     }
