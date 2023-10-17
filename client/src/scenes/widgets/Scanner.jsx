@@ -59,6 +59,7 @@ const Scanner = () => {
                 }
             );
             const res = await response;
+            console.log(res);
             if(res.status === 200) {
                 setCorrectQR(true);
             }

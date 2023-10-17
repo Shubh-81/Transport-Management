@@ -4,6 +4,7 @@ import Navbar from "../../scenes/navbar";
 import UserWidget from "../../scenes/widgets/UserWidget";
 import QRCodeGenerator from '../widgets/QRCodeGenerator';
 import Scanner from "../widgets/Scanner";
+import AddBusWidget from "../widgets/AddBusWidget";
 
 
 const HomePage = () => {
@@ -27,7 +28,8 @@ const HomePage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-            {userType === 'user' ? <QRCodeGenerator token={id}/> : <Scanner/>}
+            {/*{userType === 'user' ? <QRCodeGenerator token={id}/> : (userType === 'driver' ? <Scanner/> : <AddBusWidget/>)}*/}
+            <AddBusWidget/>
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "26%" : undefined}

@@ -10,13 +10,6 @@ import QRCode from "react-qr-code";
 const QRCodeGenerator = ({token}) => {
   const { palette } = useTheme();
   const dark = palette.neutral.dark;
-  const main = palette.neutral.main;
-  const medium = palette.neutral.medium;
-  const [text,setText] = useState("Share")
-  const handleShare = () => {
-    navigator.clipboard.writeText("https://s-matching.vercel.app")
-    setText("Link Copied to Clipboard")
-  }
 
   return (
     <WidgetWrapper>

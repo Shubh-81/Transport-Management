@@ -19,18 +19,17 @@ export const addToBus = async (req,res) => {
 
 export const createBus = async (req, res) => {
     try {
-        const {name} = req.body;
-        const bus = await Bus.findOne({bus: name});
+        const {busName} = req.body;
+        const bus = await Bus.findOne({bus: busName});
         if(bus) return res.status(500).json({message: "Bus already exists"});
         const newBus = new Bus({
-            bus: name,
+            bus: busName,
             people: []
         });
-        console.log(newBus);
         await newBus.save();
         return res.status(200).json({message: "Bus created successfully"});
     } catch(err) {
-        res.status(500).json({error: err.message});
+        res.status(500).json({message: err.message});
     }
 }
 
