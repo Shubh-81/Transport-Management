@@ -14,10 +14,12 @@ import WidgetWrapper from "../../components/WidgetWrapper";
 
 const busRegisterSchema = yup.object().shape({
     busName: yup.string().required("required"),
+    capacity: yup.string().required("required")
 });
 
 const initialValues = {
     busName: "",
+    capacity: ""
 };
 
 
@@ -86,6 +88,18 @@ const AddBusWidget = () => {
                                         Boolean(touched.busName) && Boolean(errors.busName)
                                     }
                                     helperText={touched.busName && errors.busName}
+                                    sx={{ gridColumn: "span 2" }}
+                                />
+                                <TextField
+                                    label="Capacity"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.firstName}
+                                    name="capacity"
+                                    error={
+                                        Boolean(touched.capacity) && Boolean(errors.capacity)
+                                    }
+                                    helperText={touched.capacity && errors.capacity}
                                     sx={{ gridColumn: "span 2" }}
                                 />
                             </Box>

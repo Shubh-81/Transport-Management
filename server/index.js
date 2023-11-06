@@ -9,6 +9,7 @@ import {register} from './controllers/auth.js';
 import userRoutes from './routes/user.js';
 import authRoutes from './routes/auth.js';
 import busRoutes from './routes/bus.js';
+import requestRoutes from './routes/request.js';
 
 dotenv.config();
 const app = express();
@@ -25,6 +26,7 @@ app.post('/auth/register',register);
 app.use('/auth',authRoutes);
 app.use('/users',userRoutes);
 app.use('/bus',busRoutes);
+app.use('/request',requestRoutes);
 
 const PORT = process.env.PORT || 6001;
 mongoose

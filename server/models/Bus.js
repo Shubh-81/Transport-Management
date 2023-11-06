@@ -1,12 +1,16 @@
 import mongoose from 'mongoose';
 
 const BusSchema = new mongoose.Schema({
-    bus: {
+    bus_name: {
         type: String,
         required: true,
     },
-    people: {
-        type: [String],
+    capacity: {
+        type: Number,
+        required: true
+    },
+    route: {
+        type: String,
     }
 }, {timestamps: true});
 

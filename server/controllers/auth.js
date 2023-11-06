@@ -15,7 +15,7 @@ export const register = async (req,res) => {
         let query = []
         query.push({email: email});
         const pattern = /@iitgn\.ac\.in$/;
-        if(role === 'user' && !pattern.test(email)) return res.status(500).json({message: "Please register only using Institute Email"});
+        if((role === 'user' || role === 'admin') && !pattern.test(email)) return res.status(500).json({message: "Please register only using Institute Email"});
         const foundUser = await User.findOne({$or: query});
         if(!foundUser || foundUser.verified === false) {
             const salt = await bcrpyt.genSalt();

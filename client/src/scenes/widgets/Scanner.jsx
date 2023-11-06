@@ -28,8 +28,8 @@ const Scanner = () => {
             );
             const res = await response.json();
             if(res) {
-                console.log(res);
-                setBusList(res);
+                const r = res.map(item => item.bus_name);
+                setBusList(r);
             }
         } catch(err) {
             console.log(err);
@@ -68,6 +68,7 @@ const Scanner = () => {
         }
     }
     const handleScan = async (data) => {
+        console.log(data);
         if(data && data.text)  {
             setResult(data);
             setScannerEnabled(false);
@@ -107,7 +108,7 @@ const Scanner = () => {
                         onChange={handleBusChange}
                         style={{ width: '100%' }}
                     >
-                        {busList.map((option) => (
+                        {busList && busList.map((option) => (
                             <MenuItem key={option} value={option}>
                                 {option}
                             </MenuItem>

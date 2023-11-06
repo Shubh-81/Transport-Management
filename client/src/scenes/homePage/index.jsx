@@ -5,7 +5,9 @@ import UserWidget from "../../scenes/widgets/UserWidget";
 import QRCodeGenerator from '../widgets/QRCodeGenerator';
 import Scanner from "../widgets/Scanner";
 import AddBusWidget from "../widgets/AddBusWidget";
-
+import AdminStat from "../widgets/AdminStat";
+import Request from "../widgets/RequestForm";
+import FlexBetween from "../../components/FlexBetween";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -22,20 +24,25 @@ const HomePage = () => {
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
           <Box m="2rem 0" />
-          {isNonMobileScreens&&<UserWidget userId={_id} />}
+            <Box m="2rem 0" />
+
+                {isNonMobileScreens&&<UserWidget userId={_id} />}
+
         </Box>
+
+
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-            {/*{userType === 'user' ? <QRCodeGenerator token={id}/> : (userType === 'driver' ? <Scanner/> : <AddBusWidget/>)}*/}
-            <AddBusWidget/>
+            {userType === 'user' ? <QRCodeGenerator token={id}/> : (userType === 'admin' ? <AdminStat/> : <Scanner/>)}
+
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "26%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-
+            {userType === 'admin' ? <AddBusWidget/> : userType === 'user' && <Request/>}
             <Box m="2rem 0" />
         </Box>
       </Box>
