@@ -10,20 +10,21 @@ const Request = () => {
     const dark = palette.neutral.dark;
     const main = palette.neutral.main;
     const medium = palette.neutral.medium;
-    const [text,setText] = useState("Form")
+    const [text,setText] = useState("Form");
+    const navigate = useNavigate();
     const handleShare = () => {
-
+        navigate(`/vehicle`);
     }
 
     return (
         <WidgetWrapper>
             <FlexBetween>
                 <Typography color={dark} variant="h5" fontWeight="500">
-                    Vehicle Request
+                    Vehicle Requisition
                 </Typography>
             </FlexBetween>
             <Typography color={medium} m="0.5rem 0">
-                Click the button below to send a request to admin for vehicle.
+                Click the button below to fill the Vehicle Requisition Form.
             </Typography>
             <Button
                 fullWidth

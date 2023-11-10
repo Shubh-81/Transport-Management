@@ -8,6 +8,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { Analytics } from '@vercel/analytics/react';
+import VehiclePage from "./scenes/vehiclePage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -30,6 +31,7 @@ function App() {
               path="/reset"
               element={<ResetPage />}
             />
+            <Route path="/vehicle" element={isAuth ? <VehiclePage/> : <Navigate to="/" />}/>
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
