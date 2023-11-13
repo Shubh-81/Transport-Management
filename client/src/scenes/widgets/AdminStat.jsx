@@ -36,7 +36,7 @@ const AdminStat = () => {
             };
             console.log(values);
             const response = await fetch(
-                "http://localhost:3001/bus/count",
+                `${process.env.REACT_APP_SERVER_URL}/bus/count`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -70,7 +70,7 @@ const AdminStat = () => {
     const listBuses = async () => {
         try {
             const response = await fetch(
-                "http://localhost:3001/bus/list",
+                `${process.env.REACT_APP_SERVER_URL}/bus/list`,
                 {
                     method: "GET",
                 }
