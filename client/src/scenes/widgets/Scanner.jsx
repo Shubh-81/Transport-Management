@@ -21,7 +21,7 @@ const Scanner = () => {
     const listBuses = async () => {
         try {
             const response = await fetch(
-                "http://localhost:3001/bus/list",
+                `${process.env.REACT_APP_SERVER_URL}/bus/list`,
                 {
                     method: "GET",
                 }
@@ -51,7 +51,7 @@ const Scanner = () => {
                 userId: userId
             }
             const response = await fetch(
-                "http://localhost:3001/bus/add",
+                `${process.env.REACT_APP_SERVER_URL}/bus/add`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

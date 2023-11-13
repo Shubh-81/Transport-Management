@@ -71,7 +71,7 @@ const Form = () => {
     values['role'] = selectedRole;
     setIsLoading(true);
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      `${process.env.REACT_APP_SERVER_URL}/auth/register`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -82,7 +82,7 @@ const Form = () => {
     if(res._id) {
         setUserId(res._id);
         const checkOtp = await fetch(
-          "http://localhost:3001/auth/otpverify",{
+            `${process.env.REACT_APP_SERVER_URL}/auth/optverify`,{
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(values)
@@ -108,7 +108,7 @@ const Form = () => {
 
   const login = async (values, onSubmitProps) => {
     setIsLoading(true);
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+    const loggedInResponse = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -133,7 +133,7 @@ const Form = () => {
   const verifyUser = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/auth/${userId}/verifyUser`,{
+        `${process.env.REACT_APP_SERVER_URL}/auth/${userId}/verifyUser`,{
           method: "POST",
         }
       );

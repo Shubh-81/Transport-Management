@@ -31,7 +31,7 @@ const AddBusWidget = () => {
     const handleFormSubmit = async (values, onSubmitProps) => {
         try {
             setIsLoading(true);
-            const response = await fetch(`http://localhost:3001/bus/create`,{
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/bus/create`,{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(values),

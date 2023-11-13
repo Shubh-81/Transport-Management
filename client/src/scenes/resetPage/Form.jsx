@@ -52,7 +52,7 @@ const Form = () => {
     try {
         setLoading(true);
         const response2 = await fetch(
-            "http://localhost:3001/users/useremail",{
+            `${process.env.REACT_APP_SERVER_URL}/users/useremail`,{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(values)
@@ -78,7 +78,7 @@ const Form = () => {
     try {
         setLoading(true);
         const response = await fetch(
-            "http://localhost:3001/auth/otpverify",{
+            `${process.env.REACT_APP_SERVER_URL}/auth/otpverify`,{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(values)
@@ -114,7 +114,7 @@ const Form = () => {
         password: password
       }
       const response = await fetch(
-        "http://localhost:3001/users/resetpassword",{
+          `${process.env.REACT_APP_SERVER_URL}/users/resetpassword`,{
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(values)
