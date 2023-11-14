@@ -10,6 +10,7 @@ import userRoutes from './routes/user.js';
 import authRoutes from './routes/auth.js';
 import busRoutes from './routes/bus.js';
 import requestRoutes from './routes/request.js';
+import announcementRoutes from './routes/announcement.js';
 
 dotenv.config();
 const app = express();
@@ -27,6 +28,7 @@ app.use('/auth',authRoutes);
 app.use('/users',userRoutes);
 app.use('/bus',busRoutes);
 app.use('/request',requestRoutes);
+app.use('/announcement',announcementRoutes);
 
 const PORT = process.env.PORT || 6001;
 mongoose
