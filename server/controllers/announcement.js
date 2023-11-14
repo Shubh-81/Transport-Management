@@ -1,4 +1,5 @@
 import Announcement from "../models/Announcement.js";
+import io from "../index.js";
 
 export const newAnnouncement = async (req, res) => {
     try {
@@ -9,6 +10,7 @@ export const newAnnouncement = async (req, res) => {
            announcement: message
         });
         await newAnnouncement.save();
+        io.emit('announcement', { title, message });
         return res.status(200).json({message: "Announcement sent successfully"});
     } catch(err) {
         return res.status(500).json({message: err.message});
