@@ -39,6 +39,7 @@ const AddBusWidget = () => {
             const res = await response.json();
             alert(res.message);
             setIsLoading(false);
+            window.location.reload();
         } catch (err) {
             console.log(err);
         }
