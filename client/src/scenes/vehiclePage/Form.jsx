@@ -41,7 +41,7 @@ const vehicleRequisitionSchema = yup.object().shape({
     returnOthers: yup.string(),
     returnFromDetail: yup.string().required('Return from detail is required'),
     returnTo: yup.string().required('To destination is required'),
-    returnReportingTime: yup.string(),
+    returnReportingTime: yup.string().required('Return reporting time is required'),
     officialTrip: yup.boolean(),
     chargedToProject: yup.string(),
     cpda: yup.boolean(),
@@ -241,7 +241,7 @@ export default function VehicleRequisitionForm() {
             validationSchema={vehicleRequisitionSchema}
             onSubmit={handleSubmit}
         >
-            {({ values, handleChange, setFieldValue, isSubmitting }) => (
+            {({ values, handleChange, setFieldValue, errors, touched, isSubmitting, handleBlur }) => (
                 <Form id="vehicleRequisitionForm">
                     <Grid container spacing={2} alignItems="center">
                         {/* Indenter's Details */}
@@ -256,6 +256,9 @@ export default function VehicleRequisitionForm() {
                                 label="Name of Indenter"
                                 value={values.indenterName}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.indenterName && Boolean(errors.indenterName)}
+                                helperText={touched.indenterName && errors.indenterName}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -266,6 +269,9 @@ export default function VehicleRequisitionForm() {
                                 label="Phone No"
                                 value={values.phoneNo}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.phoneNo && Boolean(errors.phoneNo)}
+                                helperText={touched.phoneNo && errors.phoneNo}
                             />
                         </Grid>
 
@@ -285,6 +291,9 @@ export default function VehicleRequisitionForm() {
                                                     label={`Traveler #${index + 1} Name`}
                                                     value={traveler.name}
                                                     onChange={handleChange}
+                                                    onBlur={handleBlur}  // Add onBlur to update touched
+                                                    error={touched.name && Boolean(errors.name)}
+                                                    helperText={touched.name && errors.name}
                                                 />
                                             </Grid>
                                             <Grid item xs={6}>
@@ -294,6 +303,9 @@ export default function VehicleRequisitionForm() {
                                                     label="Mobile No"
                                                     value={traveler.mobileNo}
                                                     onChange={handleChange}
+                                                    onBlur={handleBlur}  // Add onBlur to update touched
+                                                    error={touched.mobileNo && Boolean(errors.mobileNo)}
+                                                    helperText={touched.mobileNo && errors.mobileNo}
                                                 />
                                             </Grid>
                                         </React.Fragment>
@@ -329,6 +341,9 @@ export default function VehicleRequisitionForm() {
                                     value={values.typeOfVehicle}
                                     label="Type of Vehicle"
                                     onChange={handleChange}
+                                    onBlur={handleBlur}  // Add onBlur to update touched
+                                    error={touched.typeOfVehicle && Boolean(errors.typeOfVehicle)}
+                                    helperText={touched.typeOfVehicle && errors.typeOfVehicle}
                                 >
                                     <MenuItem value="Sedan">Sedan</MenuItem>
                                     <MenuItem value="SUV">SUV</MenuItem>
@@ -348,6 +363,9 @@ export default function VehicleRequisitionForm() {
                                             name="busType"
                                             value={values.busType}
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            error={touched.busType && Boolean(errors.busType)}
+                                            helperText={touched.busType && errors.busType}
                                         >
                                             <FormControlLabel value="AC" control={<Radio />} label="AC" />
                                             <FormControlLabel value="Non-AC" control={<Radio />} label="Non-AC" />
@@ -364,6 +382,9 @@ export default function VehicleRequisitionForm() {
                                             value={values.busSeats}
                                             label="Number of Seats"
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            error={touched.busSeats && Boolean(errors.busSeats)}
+                                            helperText={touched.busSeats && errors.busSeats}
                                         >
                                             <MenuItem value={17}>17</MenuItem>
                                             <MenuItem value={29}>29</MenuItem>
@@ -390,6 +411,9 @@ export default function VehicleRequisitionForm() {
                                 InputLabelProps={{ shrink: true }}
                                 value={values.journeyDate}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.journeyDate && Boolean(errors.journeyDate)}
+                                helperText={touched.journeyDate && errors.journeyDate}
                             />
                         </Grid>
 
@@ -404,6 +428,9 @@ export default function VehicleRequisitionForm() {
                                     value={values.from}
                                     label="From"
                                     onChange={handleChange}
+                                    onBlur={handleBlur}  // Add onBlur to update touched
+                                    error={touched.from && Boolean(errors.from)}
+                                    helperText={touched.from && errors.from}
                                 >
                                     <MenuItem value="Airport">Airport</MenuItem>
                                     <MenuItem value="RailwayStation">Railway Station</MenuItem>
@@ -420,6 +447,9 @@ export default function VehicleRequisitionForm() {
                                     label="Flight No."
                                     value={values.fromDetail}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}  // Add onBlur to update touched
+                                    error={touched.fromDetail && Boolean(errors.fromDetail)}
+                                    helperText={touched.fromDetail && errors.fromDetail}
                                 />
                             </Grid>
                         )}
@@ -432,6 +462,9 @@ export default function VehicleRequisitionForm() {
                                     label="Train No."
                                     value={values.fromDetail}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}  // Add onBlur to update touched
+                                    error={touched.fromDetail && Boolean(errors.fromDetail)}
+                                    helperText={touched.fromDetail && errors.fromDetail}
                                 />
                             </Grid>
                         )}
@@ -444,6 +477,9 @@ export default function VehicleRequisitionForm() {
                                 label="Other Destinations"
                                 value={values.others}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.others && Boolean(errors.others)}
+                                helperText={touched.others && errors.others}
                             />
                         </Grid>
 
@@ -456,6 +492,9 @@ export default function VehicleRequisitionForm() {
                                 label="To"
                                 value={values.to}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.to && Boolean(errors.to)}
+                                helperText={touched.to && errors.to}
                             />
                         </Grid>
 
@@ -470,6 +509,9 @@ export default function VehicleRequisitionForm() {
                                 InputLabelProps={{ shrink: true }}
                                 value={values.reportingTime}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.reportingTime && Boolean(errors.reportingTime)}
+                                helperText={touched.reportingTime && errors.reportingTime}
                             />
                         </Grid>
 
@@ -488,6 +530,9 @@ export default function VehicleRequisitionForm() {
                                 InputLabelProps={{ shrink: true }}
                                 value={values.returnDate}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.returnDate && Boolean(errors.returnDate)}
+                                helperText={touched.returnDate && errors.returnDate}
                             />
                         </Grid>
 
@@ -502,6 +547,9 @@ export default function VehicleRequisitionForm() {
                                     value={values.returnFrom}
                                     label="Return From"
                                     onChange={handleChange}
+                                    onBlur={handleBlur}  // Add onBlur to update touched
+                                    error={touched.returnFrom && Boolean(errors.returnFrom)}
+                                    helperText={touched.returnFrom && errors.returnFrom}
                                 >
                                     <MenuItem value="Airport">Airport</MenuItem>
                                     <MenuItem value="RailwayStation">Railway Station</MenuItem>
@@ -518,6 +566,9 @@ export default function VehicleRequisitionForm() {
                                     label="Flight No."
                                     value={values.returnFromDetail}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}  // Add onBlur to update touched
+                                    error={touched.returnFromDetail && Boolean(errors.returnFromDetail)}
+                                    helperText={touched.returnFromDetail && errors.returnFromDetail}
                                 />
                             </Grid>
                         )}
@@ -530,6 +581,9 @@ export default function VehicleRequisitionForm() {
                                     label="Train No."
                                     value={values.returnFromDetail}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}  // Add onBlur to update touched
+                                    error={touched.returnFromDetail && Boolean(errors.returnFromDetail)}
+                                    helperText={touched.returnFromDetail && errors.returnFromDetail}
                                 />
                             </Grid>
                         )}
@@ -542,6 +596,9 @@ export default function VehicleRequisitionForm() {
                                 label="Other Destinations"
                                 value={values.returnOthers}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.returnOthers && Boolean(errors.returnOthers)}
+                                helperText={touched.returnOthers && errors.returnOthers}
                             />
                         </Grid>
 
@@ -554,6 +611,9 @@ export default function VehicleRequisitionForm() {
                                 label="To"
                                 value={values.returnTo}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.returnTo && Boolean(errors.returnTo)}
+                                helperText={touched.returnTo && errors.returnTo}
                             />
                         </Grid>
 
@@ -568,6 +628,9 @@ export default function VehicleRequisitionForm() {
                                 InputLabelProps={{ shrink: true }}
                                 value={values.returnReportingTime}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.returnReportingTime && Boolean(errors.returnReportingTime)}
+                                helperText={touched.returnReportingTime && errors.returnReportingTime}
                             />
                         </Grid>
 
@@ -581,6 +644,9 @@ export default function VehicleRequisitionForm() {
                                         name="officialTrip"
                                         checked={values.officialTrip}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}  // Add onBlur to update touched
+                                        error={touched.officialTrip && Boolean(errors.officialTrip)}
+                                        helperText={touched.officialTrip && errors.officialTrip}
                                     />
                                 }
                                 label="This trip may be treated as official"
@@ -596,6 +662,9 @@ export default function VehicleRequisitionForm() {
                                 label="Charged to Project (Project Number)"
                                 value={values.chargedToProject}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.chargedToProject && Boolean(errors.chargedToProject)}
+                                helperText={touched.chargedToProject && errors.chargedToProject}
                             />
                         </Grid>
 
@@ -609,6 +678,9 @@ export default function VehicleRequisitionForm() {
                                     name="chargeType"
                                     value={values.chargeType}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    error={touched.chargeType && Boolean(errors.chargeType)}
+                                    helperText={touched.chargeType && errors.chargeType}
                                 >
                                     <FormControlLabel
                                         value="CPDA"
@@ -633,6 +705,9 @@ export default function VehicleRequisitionForm() {
                                 label="Purpose of Trip"
                                 value={values.purposeOfTrip}
                                 onChange={handleChange}
+                                onBlur={handleBlur}  // Add onBlur to update touched
+                                error={touched.purposeOfTrip && Boolean(errors.purposeOfTrip)}
+                                helperText={touched.purposeOfTrip && errors.purposeOfTrip}
                                 multiline
                                 rows={4}
                             />
@@ -649,6 +724,9 @@ export default function VehicleRequisitionForm() {
                                 name="indenterSignature"
                                 type="file"
                                 onChange={(event) => handleFileUpload(event, setFieldValue, 'indenterSignature')}
+                                onBlur={handleBlur}
+                                error={touched.indenterSignature && Boolean(errors.indenterSignature)}
+                                helperText={touched.indenterSignature && errors.indenterSignature}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -658,6 +736,9 @@ export default function VehicleRequisitionForm() {
                                 name="headSignature"
                                 type="file"
                                 onChange={(event) => handleFileUpload(event, setFieldValue, 'headSignature')}
+                                onBlur={handleBlur}
+                                error={touched.headSignature && Boolean(errors.headSignature)}
+                                helperText={touched.headSignature && errors.headSignature}
                             />
                         </Grid>
 
