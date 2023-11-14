@@ -19,7 +19,7 @@ const app = express();
 const server = http.createServer(app); // Create an HTTP server
 const io = new SocketIO(server, {
     cors: {
-        origin: "http://localhost:3000", // Set this to your client's URL
+        origin: process.env.FRONTEND_URL, // Set this to your client's URL
         methods: ["GET", "POST"]
     }
 });
