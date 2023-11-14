@@ -11,10 +11,26 @@ import FlexBetween from "../../components/FlexBetween";
 import RemoveBusWidget from "../widgets/RemoveBusWidget";
 import AddAnnouncementWidget from "../widgets/AddAnnouncementWidget";
 import AnnouncementBoard from "../widgets/AnnouncementBoard";
+import React, { useEffect, useState } from "react";
+import io from 'socket.io-client';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 
 const HomePage = () => {
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
     const { _id, userType, id } = useSelector((state) => state.user);
+    const [announcement, setAnnouncement] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
+
+    useEffect(() => {
+        const socket = io(process.env.REACT_APP_SERVER_URL); // Replace with your server URL
+        socket.on('announcement', (data) => {
+            setAnnouncement(data);
+            setOpenModal(true);
+        });
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
 
     return (
         <Box>
@@ -57,6 +73,22 @@ const HomePage = () => {
                     )}
                 </Box>
             </Box>
+            <Dialog
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+            >
+                <DialogTitle>Announcement</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        {announcement?.title} - {announcement?.message}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenModal(false)} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 };
