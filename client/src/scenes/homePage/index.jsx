@@ -9,50 +9,56 @@ import AdminStat from "../widgets/AdminStat";
 import Request from "../widgets/RequestForm";
 import FlexBetween from "../../components/FlexBetween";
 import RemoveBusWidget from "../widgets/RemoveBusWidget";
+import AddAnnouncementWidget from "../widgets/AddAnnouncementWidget";
+import AnnouncementBoard from "../widgets/AnnouncementBoard";
 
 const HomePage = () => {
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const { _id, userType, id } = useSelector((state) => state.user);
-  return (
-    <Box>
-      <Navbar />
-      <Box
-        width="100%"
-        padding="2rem 6%"
-        display={isNonMobileScreens ? "flex" : "block"}
-        gap="0.5rem"
-        justifyContent="space-between"
-      >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <Box m="2rem 0" />
-            <Box m="2rem 0" />
+    const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+    const { _id, userType, id } = useSelector((state) => state.user);
 
-                {isNonMobileScreens&&<UserWidget userId={_id} />}
+    return (
+        <Box>
+            <Navbar />
+            <Box
+                width="100%"
+                padding="2rem 6%"
+                display={isNonMobileScreens ? "flex" : "block"}
+                gap="0.5rem"
+                justifyContent="space-between"
+            >
+                <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+                    <UserWidget userId={_id}/>
 
-        </Box>
+                    {(userType === 'admin' || userType === 'user')  && (
+                        <Box m="2rem 0">
+                            {userType === 'admin' ? <AddAnnouncementWidget/> :  <AnnouncementBoard/>}
+                        </Box>
+                    )}
+                </Box>
 
+                <Box
+                    flexBasis={isNonMobileScreens ? "42%" : undefined}
+                    mt={!isNonMobileScreens ? "2rem" : undefined}
+                >
+                    {userType === 'user' ? <QRCodeGenerator token={id}/> : (userType === 'admin' ? <AdminStat/> : <Scanner/>)}
+                </Box>
 
-        <Box
-          flexBasis={isNonMobileScreens ? "42%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
-        >
-            {userType === 'user' ? <QRCodeGenerator token={id}/> : (userType === 'admin' ? <AdminStat/> : <Scanner/>)}
+                <Box
+                    flexBasis={isNonMobileScreens ? "26%" : undefined}
+                    mt={!isNonMobileScreens ? "2rem" : undefined}
+                >
+                    {userType === 'admin' && <AddBusWidget/>}
+                    {userType === 'user' && <Request/>}
 
-        </Box>
-        <Box
-          flexBasis={isNonMobileScreens ? "26%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
-        >
-            {userType === 'admin' ? <AddBusWidget/> : userType === 'user' && <Request/>}
-
-            <Box m="2rem 0">
-                {userType === 'admin' ? <RemoveBusWidget/> : null}
+                    {userType === 'admin' && (
+                        <Box m="2rem 0">
+                            <RemoveBusWidget/>
+                        </Box>
+                    )}
+                </Box>
             </Box>
-
         </Box>
-      </Box>
-    </Box>
-  );
+    );
 };
 
 export default HomePage;
