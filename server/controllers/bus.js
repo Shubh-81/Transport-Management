@@ -108,5 +108,15 @@ export const getRidesCountForBusInLastTenDays = async (req, res) => {
     }
 };
 
+export const deleteBus = async (req, res) => {
+    try {
+        const { busName } = req.body;
+        await Bus.deleteOne({ bus_name: busName });
+        return res.status(200).json({ message: "Bus deleted successfully" });
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
+}
+
 
 

@@ -8,6 +8,7 @@ import AddBusWidget from "../widgets/AddBusWidget";
 import AdminStat from "../widgets/AdminStat";
 import Request from "../widgets/RequestForm";
 import FlexBetween from "../../components/FlexBetween";
+import RemoveBusWidget from "../widgets/RemoveBusWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -43,7 +44,11 @@ const HomePage = () => {
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
             {userType === 'admin' ? <AddBusWidget/> : userType === 'user' && <Request/>}
-            <Box m="2rem 0" />
+
+            <Box m="2rem 0">
+                {userType === 'admin' ? <RemoveBusWidget/> : null}
+            </Box>
+
         </Box>
       </Box>
     </Box>
