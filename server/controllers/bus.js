@@ -12,17 +12,19 @@ export const addToBus = async (req,res) => {
         const user = await User.findOne({id: userId});
         if(!user)   return res.status(500).json({message: "User not found"});
         var today = new Date();
+        var options = { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit' };
+        var istDate = today.toLocaleDateString('en-US', options);
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
         today = mm + '/' + dd + '/' + yyyy;
-        const ride = await Ride.findOne({user_id: user._id, bus_id: bus._id, boarding_date: today});
+        const ride = await Ride.findOne({user_id: user._id, bus_id: bus._id, boarding_date: istDate});
         console.log(ride);
         if(ride)   return res.status(500).json({message: "User already added"});
         const newRide = new Ride({
            user_id: user._id,
            bus_id: bus._id,
-           boarding_date: today
+           boarding_date: istDate
         });
         console.log(newRide);
         await newRide.save();
