@@ -44,8 +44,7 @@ const vehicleRequisitionSchema = yup.object().shape({
     returnReportingTime: yup.string().required('Return reporting time is required'),
     officialTrip: yup.boolean(),
     chargedToProject: yup.string(),
-    cpda: yup.boolean(),
-    pda: yup.boolean(),
+    chargeType: yup.string(),
     purposeOfTrip: yup.string().required('Purpose of trip is required'),
     indenterSignature: yup.mixed().required('All Signatures are Required'),
     headSignature: yup.mixed().required('All Signatures are Required'),
@@ -72,8 +71,7 @@ const initialValues = {
     returnReportingTime: '',
     officialTrip: false,
     chargedToProject: '',
-    cpda: false,
-    pda: false,
+    chargeType: '',
     purposeOfTrip: '',
     indenterSignature: null,
     headSignature: null,
@@ -678,9 +676,6 @@ export default function VehicleRequisitionForm() {
                                     name="chargeType"
                                     value={values.chargeType}
                                     onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={touched.chargeType && Boolean(errors.chargeType)}
-                                    helperText={touched.chargeType && errors.chargeType}
                                 >
                                     <FormControlLabel
                                         value="CPDA"
