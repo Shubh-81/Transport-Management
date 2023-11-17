@@ -140,7 +140,7 @@ export default function VehicleRequisitionForm() {
                 createRow('Return Reporting Time', `${values.returnReportingTime}`),
 
                 createSectionTitle('Trip Details'),
-                createRow('This Trip may be treated as', `Official: ${values.officialTrip ? 'Yes' : 'No'}, Charged to Project: ${values.chargedToProject}, CPDA: ${values.cpda ? 'Yes' : 'No'}, PDA: ${values.pda ? 'Yes' : 'No'}`),
+                createRow('This Trip may be treated as', `Official: ${values.officialTrip ? 'Yes' : 'No'}, Charged to Project: ${values.chargedToProject}, Project Type: ${values.chargeType}`),
                 createRow('Purpose of trip', `${values.purposeOfTrip}`),
 
                 createSectionTitle('Signatures'),
