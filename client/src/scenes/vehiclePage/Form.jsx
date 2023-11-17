@@ -211,7 +211,7 @@ export default function VehicleRequisitionForm() {
     };
     const sendEmail = async (pdfBase64) => {
         try {
-            const response = await fetch('http://localhost:3001/users/email', {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/users/email`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
