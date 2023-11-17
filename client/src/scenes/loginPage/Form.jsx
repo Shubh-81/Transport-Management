@@ -82,7 +82,7 @@ const Form = () => {
     if(res._id) {
         setUserId(res._id);
         const checkOtp = await fetch(
-            `${process.env.REACT_APP_SERVER_URL}/auth/optverify`,{
+            `${process.env.REACT_APP_SERVER_URL}/auth/otpverify`,{
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(values)
